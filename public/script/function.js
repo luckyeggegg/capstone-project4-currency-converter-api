@@ -19,7 +19,7 @@ $(document).ready(function() {
     // Function to handle sending of data, debounced
     var handleDataSentSourceDebounced = debounceSoucrce(function() {
         handleDataSentSource();
-    }, 2000); // Wait for 2000ms after the last event to call the function
+    }, 1000); // Wait for 2000ms after the last event to call the function
     
 
     // Function to handle sending of data
@@ -126,6 +126,23 @@ $(document).ready(function() {
         }
     });
 
+    // swap the source and target currency code
+    $("#calculator-swap-button").on("click", function() {
+        var codeSelectedSourceSwap = $("#code-selected-source").text();
+        var flagSourceSwap = $("#flag-source").attr("class");
+
+        $("#code-selected-source").text($("#code-selected-target").text());
+
+        $("#flag-source").attr("class", $("#flag-target").attr("class"));
+
+        $("#code-selected-target").text(codeSelectedSourceSwap);
+
+        $("#flag-target").attr("class", flagSourceSwap);
+
+        handleDataSentSourceDebounced();
+
+
+    });
 
 
 

@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import axios from "axios";
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; 
 
 const API_key = "06291d7cf0cc0b9f7acd3e42";
 const API_URL = "https://v6.exchangerate-api.com/v6";

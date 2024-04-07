@@ -26,20 +26,20 @@
     </div>
 
     
-    <div class="container">
-      <div class="row">
-        <div class="col-md-5 text-left">
-          <div class="container selection">
-            <h5><div>From:</div></h5>
-          </div>
-
-          <div class="container selection ">
-            <div class="custom-dropdown" id = "custom-source">
+    <section class="main-converter">
+      <div class="container main">
+        <div class="row">
+          <div class="col-md-5 source">
+            <div>
+              <div><h5>From:</h5></div>
+            </div>
+            <div class="custom-dropdown mb-2" id = "custom-source">
               <div class="selected-currency" id="source-selected">
                 <span class="fi fi-au" id="flag-source"></span>
                 <span class="currency-code" id="code-selected-source"> AUD</span>
               </div>
-
+   
+              
               <ul class="dropdown" id="source-dropdown">
                 <li data-value="AUD"><span class="fi fi-au"></span> AUD</li>
                 <li data-value="CNY"><span class="fi fi-cn"></span> CNY</li>
@@ -47,28 +47,31 @@
                 <li data-value="GBP"><span class="fi fi-gb"></span> GBP</li>
                 <li data-value="USD"><span class="fi fi-us"></span> USD</li>
               </ul>
+              
+              <div>
+                <input class="form-control np-form-control np-form-control--size-auto np-input np-input--shape-rectangle" id="source-amount" inputmode="decimal" placeholder="Enter a source amount" step="0.01" min="0" title="Please enter a decimal number.">
+              </div>
             </div>
-            
-            <input class="form-control np-form-control np-form-control--size-auto np-input np-input--shape-rectangle" id="source-amount" inputmode="decimal" placeholder="Enter amount" step="0.01" min="0" title="Please enter a decimal number.">
-          </div>         
-        </div>
 
-        <div class="col-md-2 d-flex align-items-center justify-content-center ">
-          <button id="calculator-swap-button" class="calculator-swap-component__button" type="button" aria-label="Swap the from and to currency"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g data-name="Transfer data"><path d="m3.294 8.708 3 3a1 1 0 1 0 1.414-1.414L6.414 9H20a1 1 0 0 0 0-2H6.414l1.293-1.293a1 1 0 0 0-1.414-1.414l-3 3a1 1 0 0 0 .001 1.415zM20.706 15.292l-3-3a1 1 0 0 0-1.414 1.414L17.586 15H4a1 1 0 0 0 0 2h13.586l-1.293 1.293a1 1 0 0 0 1.414 1.414l3-3a1 1 0 0 0-.001-1.415z" style="fill:#1c1b1e"/></g></svg></button>
-        </div>
 
-        <div class="col-md-5 text-left">
-          <div class="container selection">
-            <h5><div>To:</div></h5>
+
           </div>
 
-          <div class="container selection ">
-            <div class="custom-dropdown" id = "custom-target">
+          <div class="col-md-2 d-flex">
+            <button id="calculator-swap-button" class="calculator-swap-component__button" type="button" aria-label="Swap the from and to currency"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g data-name="Transfer data"><path d="m3.294 8.708 3 3a1 1 0 1 0 1.414-1.414L6.414 9H20a1 1 0 0 0 0-2H6.414l1.293-1.293a1 1 0 0 0-1.414-1.414l-3 3a1 1 0 0 0 .001 1.415zM20.706 15.292l-3-3a1 1 0 0 0-1.414 1.414L17.586 15H4a1 1 0 0 0 0 2h13.586l-1.293 1.293a1 1 0 0 0 1.414 1.414l3-3a1 1 0 0 0-.001-1.415z" style="fill:#1c1b1e"/></g></svg></button>
+          </div>
+
+          <div class="col-md-5 target">
+            <div>
+              <div><h5>To:</h5></div>
+            </div>
+            <div class="custom-dropdown mb-2" id = "custom-target">
               <div class="selected-currency" id="target-selected">
                 <span class="fi fi-au" id="flag-target"></span>
                 <span class="currency-code" id="code-selected-target"> AUD</span>
               </div>
-
+   
+              
               <ul class="dropdown" id="target-dropdown">
                 <li data-value="AUD"><span class="fi fi-au"></span> AUD</li>
                 <li data-value="CNY"><span class="fi fi-cn"></span> CNY</li>
@@ -76,20 +79,22 @@
                 <li data-value="GBP"><span class="fi fi-gb"></span> GBP</li>
                 <li data-value="USD"><span class="fi fi-us"></span> USD</li>
               </ul>
+              
+              <div>
+                <input class="form-control np-form-control np-form-control--size-auto np-input np-input--shape-rectangle" id="target-amount" inputmode="decimal" placeholder="Enter a target amount" step="0.01" min="0" title="Please enter a decimal number.">
+              </div>
             </div>
-            
-            <input class="form-control np-form-control np-form-control--size-auto np-input np-input--shape-rectangle" id="target-amount" inputmode="decimal" placeholder="target amount" step="0.01" min="0" title="Please enter a decimal number." readonly>
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <h5 class="col-6-md conversion-rate-display">
-          <!-- Conversion rate will be displayed here by the client-side script -->
-        </h5>
+        <div class="row">
+          <h5 class="col-6-md conversion-rate-display">
+            <!-- Conversion rate will be displayed here by the client-side script -->
+          </h5>
 
       </div>
-    </div>      
+    </section>
+         
 
       
 
