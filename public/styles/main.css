@@ -1,0 +1,89 @@
+body {
+  background: #EEEEEE;
+  font-family: "Suranna", serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #76ABAE;
+}
+
+
+.d-flex {
+    display: flex!important;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator-swap-component__button {
+  border: 1px solid gray;
+  border-radius: 100%;
+  background-color: none;
+  height: 40px;
+  width: 40px;
+}
+
+.custom-dropdown { position: relative; color: #222831; }
+.dropdown { display: none; position: absolute; list-style: none; padding: 0; margin: 0; background-color: white; }
+.dropdown li { padding: 5px; cursor: pointer; }
+.dropdown li:hover { background-color: #f2f2f2; color: #76ABAE; }
+.selected-currency { cursor: pointer; padding: 5px; border: 1px solid none; background-color: white;}
+
+
+.selection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 5px;
+  margin-left: 1px;
+  font-size: 16px;
+  color: #344955;
+  margin-bottom: 5px;
+}
+
+#source-amount, #target-amount {
+  width: 60%;
+}
+
+
+.currency-code::after {
+  content: '▼'; /* Unicode character for down arrow */
+  display: inline-block; /* Ensures proper spacing and positioning */
+  margin-left: 3px;/* Adjust the space between the currency code and the arrow as needed */
+  font-size: 10px;
+  color: gray;
+}
+
+.conversion-rate-display {
+  color: #222831;
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+input, textarea {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  outline: none;
+  transition: border 0.3s;
+  font-family: "Suranna", sans-serif;
+  box-sizing: border-box;
+}
+
+h2 .fs-1 {
+  color:#222831;
+}

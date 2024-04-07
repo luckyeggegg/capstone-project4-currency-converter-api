@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Suranna&display=swap" rel="stylesheet">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/fis@7.0.0/css/fis.min.css"/>
+
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css"/>
+
+      <link rel="stylesheet" href="/styles/main.css">
+      
+      <title>YF's Currency Converter_API</title>
+  </head>
+  <body>
+    <div class="container">
+      <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+          <h2 class="fs-1">YF's Currency Converter</h2>
+          <p>Check live foreign currency exchange rates</p>
+      </header>
+    </div>
+
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5 text-left">
+          <div class="container selection">
+            <h5><div>From:</div></h5>
+          </div>
+
+          <div class="container selection ">
+            <div class="custom-dropdown" id = "custom-source">
+              <div class="selected-currency" id="source-selected">
+                <span class="fi fi-au" id="flag-source"></span>
+                <span class="currency-code" id="code-selected-source"> AUD</span>
+              </div>
+
+              <ul class="dropdown" id="source-dropdown">
+                <li data-value="AUD"><span class="fi fi-au"></span> AUD</li>
+                <li data-value="CNY"><span class="fi fi-cn"></span> CNY</li>
+                <li data-value="EUR"><span class="fi fi-eu"></span> EUR</li>
+                <li data-value="GBP"><span class="fi fi-gb"></span> GBP</li>
+                <li data-value="USD"><span class="fi fi-us"></span> USD</li>
+              </ul>
+            </div>
+            
+            <input class="form-control np-form-control np-form-control--size-auto np-input np-input--shape-rectangle" id="source-amount" inputmode="decimal" placeholder="Enter amount" step="0.01" min="0" title="Please enter a decimal number.">
+          </div>         
+        </div>
+
+        <div class="col-md-2 d-flex align-items-center justify-content-center ">
+          <button id="calculator-swap-button" class="calculator-swap-component__button" type="button" aria-label="Swap the from and to currency"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g data-name="Transfer data"><path d="m3.294 8.708 3 3a1 1 0 1 0 1.414-1.414L6.414 9H20a1 1 0 0 0 0-2H6.414l1.293-1.293a1 1 0 0 0-1.414-1.414l-3 3a1 1 0 0 0 .001 1.415zM20.706 15.292l-3-3a1 1 0 0 0-1.414 1.414L17.586 15H4a1 1 0 0 0 0 2h13.586l-1.293 1.293a1 1 0 0 0 1.414 1.414l3-3a1 1 0 0 0-.001-1.415z" style="fill:#1c1b1e"/></g></svg></button>
+        </div>
+
+        <div class="col-md-5 text-left">
+          <div class="container selection">
+            <h5><div>To:</div></h5>
+          </div>
+
+          <div class="container selection ">
+            <div class="custom-dropdown" id = "custom-target">
+              <div class="selected-currency" id="target-selected">
+                <span class="fi fi-au" id="flag-target"></span>
+                <span class="currency-code" id="code-selected-target"> AUD</span>
+              </div>
+
+              <ul class="dropdown" id="target-dropdown">
+                <li data-value="AUD"><span class="fi fi-au"></span> AUD</li>
+                <li data-value="CNY"><span class="fi fi-cn"></span> CNY</li>
+                <li data-value="EUR"><span class="fi fi-eu"></span> EUR</li>
+                <li data-value="GBP"><span class="fi fi-gb"></span> GBP</li>
+                <li data-value="USD"><span class="fi fi-us"></span> USD</li>
+              </ul>
+            </div>
+            
+            <input class="form-control np-form-control np-form-control--size-auto np-input np-input--shape-rectangle" id="target-amount" inputmode="decimal" placeholder="target amount" step="0.01" min="0" title="Please enter a decimal number." readonly>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <h5 class="col-6-md conversion-rate-display">
+          <!-- Conversion rate will be displayed here by the client-side script -->
+        </h5>
+
+      </div>
+    </div>      
+
+      
+
+    
+    <div class="container">
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item"><a href="https://www.linkedin.com/" class="nav-link px-2 text-body-secondary"><img src="/assets/linkedin.png" height="30" alt="LinkedIn"/></a></li>
+          <li class="nav-item"><a href="https://mail.google.com/" class="nav-link px-2 text-body-secondary"><img src="/assets/mail.png" height="30" alt="email"/></a></li>
+          <li class="nav-item"><a href="https://github.com/luckyeggegg/" class="nav-link px-2 text-body-secondary"><img src="/assets/github.png" height="30" alt="github"/></a></li>
+        </ul>
+        <p class="text-center text-body-secondary">© <%= new Date().getFullYear() %> YF Sun</p>
+      </footer>
+    </div>
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  
+    <script src="/script/function.js"></script>
+  </body>
+</html>
