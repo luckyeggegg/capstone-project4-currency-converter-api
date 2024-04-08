@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
     res.render("index.ejs");
 });
 
-app.post("/receive-data", async (req, res) => {
+app.post("/receive-data-from-source", async (req, res) => {
     const currencySource = req.body.currencySource;
     const amountSource = req.body.amountSource;
     const currencyTarget = req.body.currencyTarget;
@@ -49,6 +49,31 @@ app.post("/receive-data", async (req, res) => {
             amountTarget: amountTarget,
             conversion_rate: conversion_rate
         });
+    } catch(error) {
+        res.status(500).send(error.message);
+
+    }
+
+});
+
+
+app.post("/receive-data-from-target", async (req, res) => {
+    const currencySource = req.body.currencySource;
+    const amountTarget = req.body.amountTarget;
+    const currencyTarget = req.body.currencyTarget;
+
+    try {
+        const result = await axios.get(`${API_URL}/${API_key}/pair/${currencySource}/${currencyTarget}`);
+        console.log(result.data);
+        const conversion_rate_reverse = result.data.conversion_rate
+        if (conversion_rate_reverse != 0) {
+            const amountSource = amountTarget/conversion_rate_reverse;
+            
+            res.json({
+                amountSource: amountSource,
+                conversion_rate_reverse: conversion_rate_reverse
+            })
+        }
     } catch(error) {
         res.status(500).send(error.message);
 

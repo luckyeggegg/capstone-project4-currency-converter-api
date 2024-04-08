@@ -20,7 +20,43 @@ $(document).ready(function() {
     var handleDataSentSourceDebounced = debounceSoucrce(function() {
         handleDataSentSource();
     }, 1000); // Wait for 1000ms after the last event to call the function
+
+    var handleDataSentTargetDebounced = debounceSoucrce(function() {
+        handleDataSentTarget();
+    }, 1000); // Wait for 1000ms after the last event to call the function
     
+    // set a flag function to prevent the circular updates (for both source and target amount)
+    var isSourceActive = false;
+    var isTargetActive = false;
+
+    // Event handler for when the source amount input is focused
+    $("#source-amount").on("focus", function() {
+        isSourceActive = true;
+        isTargetActive = false;
+    });
+    // Event handler for when the source amount input loses focus
+    $("#source-amount").on("blur", function() {
+        isSourceActive = false;
+        if (!isTargetActive) {
+            // Call debounced function to update the target amount if it's not currently active
+            handleDataSentSourceDebounced();
+        }
+    });
+    // Event handler for when the target amount input is focused
+    $("#target-amount").on("focus", function() {
+        isSourceActive = false;
+        isTargetActive = true;
+    });
+    // Event handler for when the target amount input loses focus
+    $("#target-amount").on("blur", function() {
+        isTargetActive = false;
+        if (!isSourceActive) {
+            // Call debounced function to update the source amount if it's not currently active
+            handleDataSentTargetDebounced();
+        }
+
+    });    
+
 
     // Function to handle sending of data
     function handleDataSentSource() {
@@ -29,15 +65,27 @@ $(document).ready(function() {
         var currencyTarget = $("#code-selected-target").text().trim();
 
         // Ensure that amountSource is not empty or negative before sending
-        if (amountSource != "" && parseFloat(amountSource) >=0 ) {
+        if (amountSource != "" && parseFloat(amountSource) >=0 && !isTargetActive) {
             sendSourceCurrencyAndAmount(currencySource, amountSource, currencyTarget);
+        }
+    }
+
+    // Function to handle sending of data
+    function handleDataSentTarget() {
+        var currencySource = $("#code-selected-source").text().trim();
+        var amountTarget = $("#target-amount").val();
+        var currencyTarget = $("#code-selected-target").text().trim();
+
+        // Ensure that amountSource is not empty or negative before sending
+        if (amountTarget != "" && parseFloat(amountTarget) >=0 && !isSourceActive) {
+            sendTargetCurrencyAndAmount(currencySource, amountTarget, currencyTarget);
         }
     }
     
     function sendSourceCurrencyAndAmount(currencySource, amountSource, currencyTarget) {
         // Use jQuery's ajax method to send data to the server asynchronously
         $.ajax({
-            url: "/receive-data", // The URL of the server endpoint
+            url: "/receive-data-from-source", // The URL of the server endpoint
             method: "POST",
             contentType: "application/json", // The MIME type of the content being sent to the server
             
@@ -63,6 +111,37 @@ $(document).ready(function() {
             }
         })
     };
+
+
+    function sendTargetCurrencyAndAmount(currencySource, amountTarget, currencyTarget) {
+        $.ajax({
+            url: "/receive-data-from-target", 
+            method: "POST",
+            contentType: "application/json", 
+
+            data: JSON.stringify({ 
+                currencySource: currencySource,
+                amountTarget: amountTarget,
+                currencyTarget: currencyTarget }),
+
+            success: function(response) {  
+                console.log("Data sent successfully: ", response);
+
+
+                if (response.conversion_rate_reverse) {
+                    $(".conversion-rate-display").text("1 " + $("#code-selected-source").text().trim() + " = " + response.conversion_rate_reverse + " " + $("#code-selected-target").text().trim());
+                }
+                if (response.amountSource) {
+                    $("#source-amount").val(response.amountSource.toFixed(2)); 
+                }
+            },
+            error: function(error) {
+                console.log("Error sending data: ", error)
+            }
+        })
+    };
+
+
 
     // Toggle dropdown
     $("#source-selected").click(function() {
@@ -118,6 +197,12 @@ $(document).ready(function() {
 
     });
 
+    
+    $("#target-amount").on("input", function() {
+        // Call handleDataSend to attempt to send data
+        handleDataSentTargetDebounced();
+    });
+
     // Close dropdown when clicking outside
     $(document).on("click", function(event) {
         // Check if the click event target is not a descendant of '#custom-target'
@@ -140,9 +225,9 @@ $(document).ready(function() {
         $("#flag-target").attr("class", flagSourceSwap);
 
         handleDataSentSourceDebounced();
-
-
-    });
+    
+    
+        });
 
 
 
