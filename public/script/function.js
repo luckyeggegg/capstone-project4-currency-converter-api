@@ -19,12 +19,44 @@ $(document).ready(function() {
     // Function to handle sending of data, debounced
     var handleDataSentSourceDebounced = debounceSoucrce(function() {
         handleDataSentSource();
-    }, 2000); // Wait for 2000ms after the last event to call the function
+    }, 1000); // Wait for 2000ms after the last event to call the function
 
     var handleDataSentTargetDebounced = debounceSoucrce(function() {
         handleDataSentTarget();
-    }, 2000); // Wait for 2000ms after the last event to call the function
+    }, 1000); // Wait for 2000ms after the last event to call the function
     
+    // set a flag function to prevent the circular updates (for both source and target amount)
+    var isSourceActive = false;
+    var isTargetActive = false;
+
+    // Event handler for when the source amount input is focused
+    $("#source-amount").on("focus", function() {
+        isSourceActive = true;
+        isTargetActive = false;
+    });
+    // Event handler for when the source amount input loses focus
+    $("#source-amount").on("blur", function() {
+        isSourceActive = false;
+        if (!isTargetActive) {
+            // Call debounced function to update the target amount if it's not currently active
+            handleDataSentSourceDebounced();
+        }
+    });
+    // Event handler for when the target amount input is focused
+    $("#target-amount").on("focus", function() {
+        isSourceActive = false;
+        isTargetActive = true;
+    });
+    // Event handler for when the target amount input loses focus
+    $("#target-amount").on("blur", function() {
+        isTargetActive = false;
+        if (!isSourceActive) {
+            // Call debounced function to update the source amount if it's not currently active
+            handleDataSentTargetDebounced();
+        }
+
+    });    
+
 
     // Function to handle sending of data
     function handleDataSentSource() {
@@ -33,7 +65,7 @@ $(document).ready(function() {
         var currencyTarget = $("#code-selected-target").text().trim();
 
         // Ensure that amountSource is not empty or negative before sending
-        if (amountSource != "" && parseFloat(amountSource) >=0 ) {
+        if (amountSource != "" && parseFloat(amountSource) >=0 && !isTargetActive) {
             sendSourceCurrencyAndAmount(currencySource, amountSource, currencyTarget);
         }
     }
@@ -45,7 +77,7 @@ $(document).ready(function() {
         var currencyTarget = $("#code-selected-target").text().trim();
 
         // Ensure that amountSource is not empty or negative before sending
-        if (amountTarget != "" && parseFloat(amountTarget) >=0 ) {
+        if (amountTarget != "" && parseFloat(amountTarget) >=0 && !isSourceActive) {
             sendTargetCurrencyAndAmount(currencySource, amountTarget, currencyTarget);
         }
     }
