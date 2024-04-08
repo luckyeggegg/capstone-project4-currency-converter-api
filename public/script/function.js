@@ -20,6 +20,10 @@ $(document).ready(function() {
     var handleDataSentSourceDebounced = debounceSoucrce(function() {
         handleDataSentSource();
     }, 2000); // Wait for 2000ms after the last event to call the function
+
+    var handleDataSentTargetDebounced = debounceSoucrce(function() {
+        handleDataSentTarget();
+    }, 2000); // Wait for 2000ms after the last event to call the function
     
 
     // Function to handle sending of data
@@ -33,11 +37,23 @@ $(document).ready(function() {
             sendSourceCurrencyAndAmount(currencySource, amountSource, currencyTarget);
         }
     }
+
+    // Function to handle sending of data
+    function handleDataSentTarget() {
+        var currencySource = $("#code-selected-source").text().trim();
+        var amountTarget = $("#amount-amount").val();
+        var currencyTarget = $("#code-selected-target").text().trim();
+
+        // Ensure that amountSource is not empty or negative before sending
+        if (amountTarget != "" && parseFloat(amountTarget) >=0 ) {
+            sendTargetCurrencyAndAmount(currencySource, amountTarget, currencyTarget);
+        }
+    }
     
     function sendSourceCurrencyAndAmount(currencySource, amountSource, currencyTarget) {
         // Use jQuery's ajax method to send data to the server asynchronously
         $.ajax({
-            url: "/receive-data", // The URL of the server endpoint
+            url: "/receive-data-from-source", // The URL of the server endpoint
             method: "POST",
             contentType: "application/json", // The MIME type of the content being sent to the server
             
@@ -63,6 +79,37 @@ $(document).ready(function() {
             }
         })
     };
+
+
+    function sendTargetCurrencyAndAmount(currencySource, amountTarget, currencyTarget) {
+        $.ajax({
+            url: "/receive-data-from-target", 
+            method: "POST",
+            contentType: "application/json", 
+
+            data: JSON.stringify({ 
+                currencySource: currencySource,
+                amountTarget: amountTarget,
+                currencyTarget: currencyTarget }),
+
+            success: function(response) {  
+                console.log("Data sent successfully: ", response);
+
+
+                if (response.conversion_rate_reverse) {
+                    $(".conversion-rate-display").text("1 " + $("#code-selected-source").text().trim() + " = " + response.conversion_rate_reverse + " " + $("#code-selected-target").text().trim());
+                }
+                if (response.amountSource) {
+                    $("#source-amount").val(response.amountSource.toFixed(2)); 
+                }
+            },
+            error: function(error) {
+                console.log("Error sending data: ", error)
+            }
+        })
+    };
+
+
 
     // Toggle dropdown
     $("#source-selected").click(function() {
@@ -116,6 +163,12 @@ $(document).ready(function() {
         // Call handleDataSend to attempt to send data
         handleDataSentSourceDebounced();
 
+    });
+
+    
+    $("#target-amount").on("input", function() {
+        // Call handleDataSend to attempt to send data
+        handleDataSentTargetDebounced();
     });
 
     // Close dropdown when clicking outside

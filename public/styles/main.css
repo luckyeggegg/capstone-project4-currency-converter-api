@@ -55,22 +55,11 @@ body {
   color: gray;
 }
 
-.conversion-rate-display {
+.conversion-rate-display, .conversion-rate-display-reverse {
   color: #222831;
   margin-top: 5px;
   font-weight: bold;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 input, textarea {
   width: calc(100% - 20px);
