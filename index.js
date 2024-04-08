@@ -67,7 +67,7 @@ app.post("/receive-data-from-target", async (req, res) => {
         console.log(result.data);
         const conversion_rate_reverse = result.data.conversion_rate
         if (conversion_rate_reverse != 0) {
-            const amountSource = amountTarget/conversion_rate;
+            const amountSource = amountTarget/conversion_rate_reverse;
             
             res.json({
                 amountSource: amountSource,

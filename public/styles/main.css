@@ -10,24 +10,41 @@ body {
 .d-flex {
     display: flex!important;
     flex-direction: column;
-    align-content: center;
     justify-content: center;
     align-items: center;
+}
+
+
+.main-converter {
+  height: 30vh;
+  margin-top: 100px;
 }
 
 .calculator-swap-component__button {
   border: 1px solid gray;
   border-radius: 100%;
   background-color: none;
-  height: 40px;
-  width: 40px;
+  height: 50px;
+  width: 50px;
 }
 
-.custom-dropdown { position: relative; color: #222831; }
-.dropdown { display: none; position: absolute; list-style: none; padding: 0; margin: 0; background-color: white; }
+.custom-dropdown { 
+  position: relative;
+  color: #222831; 
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+}
+.dropdown { display: none; position: fixed; list-style: none; padding: 0; margin: 0; background-color: white; width: 34.75%;}
 .dropdown li { padding: 5px; cursor: pointer; }
 .dropdown li:hover { background-color: #f2f2f2; color: #76ABAE; }
-.selected-currency { cursor: pointer; padding: 5px; border: 1px solid none; background-color: white;}
+.selected-currency { 
+  cursor: pointer; 
+  padding: 5px; 
+  background-color: white; 
+  width: 35%;
+  border-radius: 10%;
+}
 
 
 .selection {
@@ -43,8 +60,9 @@ body {
 }
 
 #source-amount, #target-amount {
-  width: 60%;
+  width: 225%;
 }
+
 
 
 .currency-code::after {
@@ -55,13 +73,22 @@ body {
   color: gray;
 }
 
-.conversion-rate-display, .conversion-rate-display-reverse {
+.conversion-rate-display {
   color: #222831;
   margin-top: 5px;
   font-weight: bold;
 }
 
-input, textarea {
+.converter-content {
+  display: flex;
+  flex-direction: column;
+
+}
+
+
+
+
+/* input, textarea {
   width: calc(100% - 20px);
   padding: 10px;
   border: 1px solid #ddd;
@@ -71,8 +98,40 @@ input, textarea {
   transition: border 0.3s;
   font-family: "Suranna", sans-serif;
   box-sizing: border-box;
+} */
+
+h5 {
+  color:#496989;
 }
 
-h2 .fs-1 {
-  color:#222831;
+/* .row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+} */
+
+/* .main-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: lightgrey;
+  width: 50%;
+} */
+
+.currency-input {
+  width: 80%;
+}
+
+.source, .target {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: self-start;
+}
+
+.main {
+  background-color: lightgrey;
 }

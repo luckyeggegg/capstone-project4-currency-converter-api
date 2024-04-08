@@ -41,7 +41,7 @@ $(document).ready(function() {
     // Function to handle sending of data
     function handleDataSentTarget() {
         var currencySource = $("#code-selected-source").text().trim();
-        var amountTarget = $("#amount-amount").val();
+        var amountTarget = $("#target-amount").val();
         var currencyTarget = $("#code-selected-target").text().trim();
 
         // Ensure that amountSource is not empty or negative before sending
@@ -179,6 +179,23 @@ $(document).ready(function() {
         }
     });
 
+        // swap the source and target currency code
+        $("#calculator-swap-button").on("click", function() {
+            var codeSelectedSourceSwap = $("#code-selected-source").text();
+            var flagSourceSwap = $("#flag-source").attr("class");
+    
+            $("#code-selected-source").text($("#code-selected-target").text());
+    
+            $("#flag-source").attr("class", $("#flag-target").attr("class"));
+    
+            $("#code-selected-target").text(codeSelectedSourceSwap);
+    
+            $("#flag-target").attr("class", flagSourceSwap);
+    
+            handleDataSentSourceDebounced();
+    
+    
+        });
 
 
 
