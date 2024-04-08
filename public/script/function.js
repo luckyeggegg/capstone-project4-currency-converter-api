@@ -19,7 +19,7 @@ $(document).ready(function() {
     // Function to handle sending of data, debounced
     var handleDataSentSourceDebounced = debounceSoucrce(function() {
         handleDataSentSource();
-    }, 1000); // Wait for 2000ms after the last event to call the function
+    }, 1000); // Wait for 1000ms after the last event to call the function
     
 
     // Function to handle sending of data
